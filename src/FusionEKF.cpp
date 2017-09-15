@@ -133,6 +133,9 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
   float dt = (measurement_pack.timestamp_ - previous_timestamp_);
   dt /= 1000000.0; // to sec.
+  if(dt <= 0.0001){
+    dt = 0.0001;
+  }
   previous_timestamp_ = measurement_pack.timestamp_;
   
   ekf_.F_ = MatrixXd(4, 4);
